@@ -1,0 +1,75 @@
+Step 1
+<dependency>
+		    <groupId>cz.jirutka.rsql</groupId>
+		    <artifactId>rsql-parser</artifactId>
+		    <version>2.1.0</version>
+         </dependency>  
+         <dependency>
+		    <groupId>com.github.tennaito</groupId>
+		    <artifactId>rsql-jpa</artifactId>
+		    <version>2.0.2</version>
+         </dependency>
+         
+         
+        Step 2
+        
+        /conditional query
+	//http://localhost:7076/currencies/condition/v1.0?q=code==U*
+	 @GetMapping({"/condition/v1.0", "/condition/v1.1"})
+	    public ResponseEntity<List<Currency>> query(@RequestParam(value = "q") String query) {
+	        List<Currency> result = null;
+	        try {
+	         result= currencyService.searchByQuery(query);
+	        }catch (IllegalArgumentException iae){
+	            return  ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                    .body(result);
+	        }
+	        return  ResponseEntity.status(HttpStatus.OK)
+	                .body(result);
+	    }
+	
+  
+  step 3
+  
+  Service
+  
+   @Autowired
+	private EntityManager entityManager;
+  
+  
+  //conditional query
+    public List<Currency> searchByQuery(String queryString) {
+        RSQLVisitor<CriteriaQuery<Currency>, EntityManager> visitor = new JpaCriteriaQueryVisitor<Currency>();;
+        CriteriaQuery<Currency> query;
+        query = getCriteriaQuery(queryString, visitor);
+        List<Currency> resultList = entityManager.createQuery(query).getResultList();
+        if (resultList == null || resultList.isEmpty()){
+            return Collections.emptyList();
+        }
+        return resultList;
+    }
+
+   
+    public Long countByQuery(String queryString) {
+        RSQLVisitor<CriteriaQuery<Long>, EntityManager> visitor = new JpaCriteriaCountQueryVisitor<Currency>();
+        CriteriaQuery<Long> query;
+        query = getCriteriaQuery(queryString, visitor);
+
+        return entityManager.createQuery(query).getSingleResult();
+    }
+
+    private <T> CriteriaQuery<T> getCriteriaQuery(String queryString, RSQLVisitor<CriteriaQuery<T>, EntityManager> visitor) {
+        Node rootNode;
+        CriteriaQuery<T> query;
+        try {
+            rootNode = new RSQLParser().parse(queryString);
+            query = rootNode.accept(visitor, entityManager);
+        }catch (Exception e){
+            log.error("An error happened while executing RSQL query", e);
+            throw new IllegalArgumentException(e.getMessage());
+        }
+        return query;
+    }
+  
+  
+  
