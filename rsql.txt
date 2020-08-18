@@ -32,6 +32,14 @@ Step 1
   step 3
   
   Service
+  import com.github.tennaito.rsql.jpa.JpaCriteriaCountQueryVisitor;
+import com.github.tennaito.rsql.jpa.JpaCriteriaQueryVisitor;
+
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
+import cz.jirutka.rsql.parser.ast.RSQLVisitor;
+import lombok.extern.slf4j.Slf4j;
+
   
    @Autowired
 	private EntityManager entityManager;
