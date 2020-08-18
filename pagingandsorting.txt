@@ -1,7 +1,7 @@
 Step1
 
 Controller
-
+http://localhost:7076/currencies/paging/v1.0?pageNo=1&sortKey=code
 	
 	@GetMapping({"/paging/v1.0", "/paging/v1.1"})
 	public List<Currency> getAllCurrenciesByPageandSort(@RequestParam(value="pageNo", defaultValue="0") Integer pageNo,
