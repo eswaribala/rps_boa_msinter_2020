@@ -16,6 +16,11 @@ http://localhost:7076/currencies/paging/v1.0?pageNo=1&sortKey=code
   
   Service
   
+  import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+  
    //paging and Sorting
     public List<Currency> getAllCurrencies(Integer pageNo, String sortKey)
 	{
