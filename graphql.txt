@@ -19,3 +19,46 @@
 			<version>4.7.1</version>
 			<scope>compile</scope>
 		</dependency>
+
+
+Step2
+
+type Customer {
+	customerId: ID!,
+	name: String,
+	email: String,
+	dob: String,
+	gender:String
+    addressList: [Address!]!
+}
+
+
+type Address {
+	addressId: ID!,
+	city: String,
+	state: String,
+	doorNo: String,
+	street: String,
+	customer: Customer!
+}
+
+type Query {
+	findAllCustomers:[Customer]
+	findCustomer(customerId: ID):Customer
+}
+
+
+
+input AddressInput {
+	addressId: ID!,
+	city: String,
+	state: String,
+	doorNo: String,
+	street: String
+	
+	
+}
+
+type Mutation {
+	createCustomer(firstName: String!, lastName: String!, email: String, dob: String, gender: String, addressList:[AddressInput!]! ):Customer
+}
