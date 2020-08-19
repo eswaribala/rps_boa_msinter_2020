@@ -1,0 +1,23 @@
+Step1
+Download grafana.zip
+Grafana
+E:\software\A08\file\grafana-6.4.3.windows-amd64\grafana-6.4.3\bin
+
+run grafana server
+
+Step2
+
+Prometheus tar download
+unzip
+
+prometheus.exe  --config.file="prometheus.yml" --web.listen-address=:9092
+
+
+Step3
+
+Goto  Springboot application
+
+
+
+
+

@@ -1,0 +1,111 @@
+java -jar spring-cloud-dataflow-server-local-1.3.0.M1.jar \
+        --spring.datasource.url=jdbc:postgresql://localhost:5432/xe \
+        --spring.datasource.username=root \
+        --spring.datasource.password=viki \
+        --spring.datasource.driver-class=org.postgresql.Driver \
+        --spring.rabbitmq.host=127.0.0.1 \
+        --spring.rabbitmq.port=5672 \
+        --spring.rabbitmq.username=guest \
+        --spring.rabbitmq.password=guest
+
+
+
+java -jar spring-cloud-dataflow-server-local-1.3.0.M1.jar 
+--spring.datasource.url=jdbc:mysql://localhost:3306/virtusasdldb?useSSL=true
+--spring.datasource.username=root
+ --spring.datasource.password=vignesh 
+        --spring.datasource.driver-class-name=com.mysql.jdbc.Driver 
+        --spring.rabbitmq.host=127.0.0.1
+        --spring.rabbitmq.port=5672 
+        --spring.rabbitmq.username=guest 
+        --spring.rabbitmq.password=guest
+
+
+
+
+
+
+
+
+java -jar spring-cloud-dataflow-shell-1.3.0.BUILD-SNAPSHOT.jar
+
+
+app list
+
+app register --name otpsource-app --type source --uri file:///F:/virtusa_microservices_oct2019/sdfsource/target/sdfsource-0.0.1-SNAPSHOT.jar
+app register --name otpprocessor-app --type processor --uri file:///F:/virtusa_microservices_oct2019/sdfprocessor/target/sdfprocessor-0.0.1-SNAPSHOT.jar
+app register --name otpsink-app --type sink --uri file:///F:/virtusa_microservices_oct2019/sdfsink/target/sdfsink-0.0.1-SNAPSHOT.jar
+
+stream create --name log-data --definition 'otpsource-app|otpprocessor-app|otpsink-app'
+
+stream deploy --name log-data
+
+app register --name marketdatasource-app --type source --uri file:///F:/virtusausjune2020/marketdata/target/marketdata-0.0.1-SNAPSHOT.jar
+app register --name marketdataprocessor-app --type processor --uri file:///F:/virtusausjune2020/marketdataprocessor/target/marketdataprocessor-0.0.1-SNAPSHOT.jar
+
+app register --name marketdatasink-app --type sink --uri file:///F:/virtusausjune2020/marketdatasink/target/marketdatasink-0.0.1-SNAPSHOT.jar
+
+stream create --name market-data-log --definition 'marketdatasource-app | marketdataprocessor-app | marketdatasink-app'
+stream deploy --name market-data-log
+
+
+
+app register --name source-app --type source --uri file:///F:/virtusa_microservices_apr2020/source/target/source-0.0.1-SNAPSHOT.jar
+
+app register --name processor-app --type processor --uri file:///F:/virtusa_microservices_apr2020/processor/target/processor-0.0.1-SNAPSHOT.jar
+
+
+stream create --name beneficiary-log --definition 'beneficiary-source-app|beneficiary-processor-app|beneficiary-sink-app'
+
+stream deploy --name  beneficiary-log
+
+
+app register --name source-app --type source --uri maven://com.javainuse:source:jar:0.0.1-SNAPSHOT
+
+app register --name source-app --type source --uri maven://com.virtusa.marketdata:marketdata:jar:0.0.1-SNAPSHOT
+
+app register --name processor-app --type processor --uri maven://com.virtusa.marketdataprocessor:marketdataprocessor:jar:0.0.1-SNAPSHOT
+
+app register --name sink-app --type sink --uri maven://com.virtusa.marketdatasink:marketdatasink:jar:0.0.1-SNAPSHOT
+
+
+
+stream create --definition --name s3Test "file --directory=F:\\Dev\\test --fixed-delay=5 | s3stats | s3 --cloud.aws.stack.auto=false \
+                --cloud.aws.credentials.accessKey=<accessKey> \
+                --cloud.aws.credentials.secretKey=<secretKey> \
+                --cloud.aws.region.static=us-east-1 \
+                --s3.bucket=<bucket-name> \
+                --s3.key-expression=headers.file_name \
+                --s3.acl=PublicReadWrite"
+
+stream deploy s3Test
+
+
+
+
+
+
+
+
+
+Task
+
+app register --name file-app --type task --uri file:///F:/virtusa_microservices_oct2019/scdftasklet/target/scdftasklet-0.0.1-SNAPSHOT.jar
+
+task create filejob --definition file-app
+
+task list
+
+task launch filejob
+
+
+
+task execution list
+
+
+
+
+
+
+
+
