@@ -1,0 +1,18 @@
+Step1 : download and install rmq
+Step2: install erlang otp 21.0 for raabitmq 3.8.5 
+Step3
+rabbitmq-plugins enable rabbitmq_management
+Step 4
+run rmq server
+Step 5
+http://localhost:15672/
+Step6
+username and password
+guest,guest
+
+
+if server already running
+go to sbin folder, admin privileges
+rabbitmq-plugins enable rabbitmq_management
+http://localhost:15672/
+
