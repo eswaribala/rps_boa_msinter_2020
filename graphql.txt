@@ -62,3 +62,11 @@ input AddressInput {
 type Mutation {
 	createCustomer(firstName: String!, lastName: String!, email: String, dob: String, gender: String, addressList:[AddressInput!]! ):Customer
 }
+
+
+step3
+
+# Graphql
+#graphql.servlet.mapping: /apis/graphql
+graphql.tools.schema-location-pattern: **/*.graphqls
+
