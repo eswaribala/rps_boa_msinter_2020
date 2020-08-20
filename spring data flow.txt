@@ -22,11 +22,25 @@ java -jar spring-cloud-dataflow-server-local-1.3.0.M1.jar
 
 
 
+Step1
+mongod --dbpath="f:\test"
+Step2
+mongo
+
+Step3
+download jars
+spring-cloud-dataflow-server-local-1.3.0.M1.jar
+
+spring-cloud-dataflow-shell-1.3.0.M1.jar
+
+step4
+https://www.h2database.com/html/download.html
 
 
+step5
 
-
-
+spring-cloud-dataflow-server-local-1.3.0.M1.jar
+java -jar 
 java -jar spring-cloud-dataflow-shell-1.3.0.BUILD-SNAPSHOT.jar
 
 
