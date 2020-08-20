@@ -1,0 +1,13 @@
+https://www.h2database.com/html/download.html
+java -jar axonserver.jar
+
+go to main module orch, run as build
+
+clean package spring-boot:run -pl order-service --also-make
+ 
+package spring-boot:run -pl payment-service --also-make
+ 
+package spring-boot:run -pl shipping-service --also-make
+
+http://localhost:7070/swagger-ui.html
+create order, order type is enum
